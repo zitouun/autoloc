@@ -6,27 +6,35 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
-@Table(name = "agence")
+@Table(name = "client")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Agence {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAgence;
+    private Long idClient;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 50)
     private String nom;
 
     @Column(nullable = false, length = 50)
-    private String ville;
+    private String prenom;
 
-    @Column(nullable = false, length = 150)
-    private String adresse;
+    @Column(nullable = false, unique = true, length = 100)
+    private String email;
 
     @Column(nullable = false, length = 20)
     private String telephone;
+
+    @Column(nullable = false, unique = true, length = 30)
+    private String numPermis;
+
+    @Column(nullable = false)
+    private LocalDate dateInscription;
 }
