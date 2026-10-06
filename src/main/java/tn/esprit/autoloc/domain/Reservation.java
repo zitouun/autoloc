@@ -9,7 +9,6 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "reservation")
 @Getter
 @Setter
 @NoArgsConstructor

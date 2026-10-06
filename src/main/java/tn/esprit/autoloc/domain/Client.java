@@ -12,7 +12,6 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "client")
 @Getter
 @Setter
 @NoArgsConstructor
