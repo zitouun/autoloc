@@ -22,24 +22,30 @@ public class AgenceService implements IAgenceService{
 
     @Override
     public Agence modifierAgence(Agence agence) {
-        return null;
+        if (agence.getIdAgence() == null || !agenceRepository.existsById(agence.getIdAgence())) {
+            throw new IllegalArgumentException("Agence introuvable : " + agence.getIdAgence());
+        }
+        return agenceRepository.save(agence);
     }
 
     @Override
     public List<Agence> afficherTousAgence() {
-        return List.of();
+        return agenceRepository.findAll();
     }
 
     @Override
     public Agence afficherAgenceById(Long id) {
-        return null;
+        return agenceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Agence introuvable : " + id));
     }
 
     @Override
     public void supprimerAgence(Long id) {
-
+        if (!agenceRepository.existsById(id)) {
+            throw new IllegalArgumentException("Agence introuvable : " + id);
+        }
+        agenceRepository.deleteById(id);
     }
 
 
 }
-
