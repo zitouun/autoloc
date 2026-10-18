@@ -16,21 +16,25 @@ public class EquipementService implements IEquipementService{
 
     @Override
     public Equipement ajouterEquipement(Equipement equipement) {
+
         return equipementRepository.save(equipement);
     }
 
     @Override
     public Equipement modifierEquipement(Equipement equipement) {
+
         return null;
     }
 
     @Override
     public List<Equipement> afficherTousEquipement() {
+
         return List.of();
     }
 
     @Override
     public Equipement afficherEquipementById(Long id) {
+
         return null;
     }
 
