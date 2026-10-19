@@ -21,22 +21,30 @@ public class MaintenanceService implements IMaintenanceService{
 
     @Override
     public Maintenance modifierMaintenance(Maintenance maintenance) {
-        return null;
+        if (maintenance.getIdMaintenance() == null
+                || !maintenanceRepository.existsById(maintenance.getIdMaintenance())) {
+            throw new IllegalArgumentException("Maintenance introuvable : " + maintenance.getIdMaintenance());
+        }
+        return maintenanceRepository.save(maintenance);
     }
 
     @Override
     public List<Maintenance> afficherTousMaintenance() {
-        return List.of();
+        return maintenanceRepository.findAll();
     }
 
     @Override
     public Maintenance afficherMaintenaceById(Long id) {
-        return null;
+        return maintenanceRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Maintenance introuvable : " + id));
     }
-
+    
     @Override
     public void supprimerMaintenance(Long id) {
-
+        if (!maintenanceRepository.existsById(id)) {
+            throw new IllegalArgumentException("Maintenance introuvable : " + id);
+        }
+        maintenanceRepository.deleteById(id);
     }
 
 }

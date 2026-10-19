@@ -18,6 +18,11 @@ public class ClientController {
         return clientService.afficherTousClients();
     }
 
+    @GetMapping("/afficherClient/{idClient}")
+    public Client getClientById(@PathVariable Long idClient) {
+        return clientService.afficherClientById(idClient);
+    }
+
     @PostMapping("/ajouterClient")
     public Client ajouterClient(@RequestBody Client client) {
         return clientService.ajouterClient(client);

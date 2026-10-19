@@ -36,22 +36,29 @@ public class EmployeService implements IEmployeService{
 
     @Override
     public Employe modifierEmploye(Employe employe) {
-        return null;
+        if (employe.getIdEmploye() == null || !employeRepository.existsById(employe.getIdEmploye())) {
+            throw new IllegalArgumentException("Employe introuvable : " + employe.getIdEmploye());
+        }
+        return employeRepository.save(employe);
     }
 
     @Override
     public List<Employe> afficherTousEmployes() {
-        return List.of();
+        return employeRepository.findAll();
     }
 
     @Override
     public Employe afficherEmployeById(Long id) {
-        return null;
+        return employeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Employe introuvable : " + id));
     }
-
+    
     @Override
     public void supprimerEmploye(Long id) {
-
+        if (!employeRepository.existsById(id)) {
+            throw new IllegalArgumentException("Employe introuvable : " + id);
+        }
+        employeRepository.deleteById(id);
     }
 
 }

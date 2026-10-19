@@ -18,6 +18,11 @@ public class EmployerController {
         return employeService.afficherTousEmployes();
     }
 
+    @GetMapping("/afficherEmploye/{idEmploye}")
+    public Employe getEmployeById(@PathVariable Long idEmploye) {
+        return employeService.afficherEmployeById(idEmploye);
+    }
+
     @PostMapping("/ajouterEmploye")
     public Employe ajouterEmploye(@RequestBody Employe employe) {
         return employeService.ajouterEmploye(employe);

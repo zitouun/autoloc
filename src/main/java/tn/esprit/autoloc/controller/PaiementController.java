@@ -18,6 +18,11 @@ public class PaiementController {
         return paiementService.afiicherTousPaiement();
     }
 
+    @GetMapping("/afficherPaiement/{idPaiement}")
+    public Paiement getPaiementById(@PathVariable Long idPaiement) {
+        return paiementService.afficherPaiementById(idPaiement);
+    }
+
     @PostMapping("/ajouterPaiement")
     public Paiement ajouterPaiement(@RequestBody Paiement paiement) {
         return paiementService.ajouterPaiement(paiement);

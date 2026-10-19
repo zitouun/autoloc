@@ -21,21 +21,28 @@ public class ContratService  implements IContratService {
 
     @Override
     public Contrat modifierContrat(Contrat contrat) {
-        return null;
+        if (contrat.getIdContrat() == null || !contratRepository.existsById(contrat.getIdContrat())) {
+            throw new IllegalArgumentException("Contrat introuvable : " + contrat.getIdContrat());
+        }
+        return contratRepository.save(contrat);
     }
 
     @Override
     public List<Contrat> afficherTousContrats() {
-        return List.of();
+        return contratRepository.findAll();
     }
 
     @Override
     public Contrat afficherContratById(Long id) {
-        return null;
+        return contratRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Contrat introuvable : " + id));
     }
-
+    
     @Override
     public void supprimerContrat(Long id) {
-
+        if (!contratRepository.existsById(id)) {
+            throw new IllegalArgumentException("Contrat introuvable : " + id);
+        }
+        contratRepository.deleteById(id);
     }
 }

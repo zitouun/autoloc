@@ -18,6 +18,11 @@ public class ContratController {
         return contratService.afficherTousContrats();
     }
 
+    @GetMapping("/afficherContrat/{idContrat}")
+    public Contrat getContratById(@PathVariable Long idContrat) {
+        return contratService.afficherContratById(idContrat);
+    }
+
     @PostMapping("/ajouterContrat")
     public Contrat ajouterContrat(@RequestBody Contrat contrat) {
         return contratService.ajouterContrat(contrat);

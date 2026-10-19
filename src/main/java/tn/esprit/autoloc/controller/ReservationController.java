@@ -18,6 +18,11 @@ public class ReservationController {
         return reservationService.afficherTousReservation();
     }
 
+    @GetMapping("/afficherReservation/{idReservation}")
+    public Reservation getReservationById(@PathVariable Long idReservation) {
+        return reservationService.afficherReservationById(idReservation);
+    }
+
     @PostMapping("/ajouterReservation")
     public Reservation ajouterReservation(@RequestBody Reservation reservation) {
         return reservationService.ajouterReservation(reservation);

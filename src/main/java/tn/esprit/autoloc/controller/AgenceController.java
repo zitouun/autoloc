@@ -18,6 +18,11 @@ public class AgenceController {
         return agenceService.afficherTousAgence();
     }
 
+    @GetMapping("/afficherAgence/{idAgence}")
+    public Agence getAgenceById(@PathVariable Long idAgence) {
+        return agenceService.afficherAgenceById(idAgence);
+    }
+
     @PostMapping("/ajouterAgence")
     public Agence ajouterAgence(@RequestBody Agence agence) {
         return agenceService.ajouerAgence(agence);

@@ -18,6 +18,11 @@ public class VehiculeController {
         return vehiculeService.afficherTousVehicule();
     }
 
+    @GetMapping("/afficherVehicule/{idVehicule}")
+    public Vehicule getVehiculeById(@PathVariable Long idVehicule) {
+        return vehiculeService.AfficherVehiculeById(idVehicule);
+    }
+
     @PostMapping("/ajouterVehicule")
     public Vehicule ajouterVehicule(@RequestBody Vehicule vehicule) {
         return vehiculeService.ajouterVehicule(vehicule);

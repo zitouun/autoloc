@@ -20,22 +20,30 @@ public class ReservationService implements IReservationService {
 
     @Override
     public Reservation modifierReservation(Reservation reservation) {
-        return null;
+        if (reservation.getIdReservation() == null
+                || !reservationReopitory.existsById(reservation.getIdReservation())) {
+            throw new IllegalArgumentException("Reservation introuvable : " + reservation.getIdReservation());
+        }
+        return reservationReopitory.save(reservation);
     }
 
     @Override
     public List<Reservation> afficherTousReservation() {
-        return List.of();
+        return reservationReopitory.findAll();
     }
 
     @Override
     public Reservation afficherReservationById(Long id) {
-        return null;
+        return reservationReopitory.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Reservation introuvable : " + id));
     }
-
+    
     @Override
     public void supprimerReservation(Long id) {
-
+        if (!reservationReopitory.existsById(id)) {
+            throw new IllegalArgumentException("Reservation introuvable : " + id);
+        }
+        reservationReopitory.deleteById(id);
     }
 
 

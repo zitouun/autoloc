@@ -21,22 +21,29 @@ public class ClientService implements IClientService {
 
     @Override
     public Client modifierClient(Client client) {
-        return null;
+        if (client.getIdClient() == null || !clientRepository.existsById(client.getIdClient())) {
+            throw new IllegalArgumentException("Client introuvable : " + client.getIdClient());
+        }
+        return clientRepository.save(client);
     }
 
     @Override
     public List<Client> afficherTousClients() {
-        return List.of();
+        return clientRepository.findAll();
     }
 
     @Override
     public Client afficherClientById(Long id) {
-        return null;
+        return clientRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Client introuvable : " + id));
     }
-
+    
     @Override
     public void supprimerClient(Long id) {
-
+        if (!clientRepository.existsById(id)) {
+            throw new IllegalArgumentException("Client introuvable : " + id);
+        }
+        clientRepository.deleteById(id);
     }
 
 

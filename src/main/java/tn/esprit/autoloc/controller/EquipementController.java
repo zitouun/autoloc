@@ -18,6 +18,11 @@ public class EquipementController {
         return equipementService.afficherTousEquipement();
     }
 
+    @GetMapping("/afficherEquipement/{idEquipement}")
+    public Equipement getEquipementById(@PathVariable Long idEquipement) {
+        return equipementService.afficherEquipementById(idEquipement);
+    }
+
     @PostMapping("/ajouterEquipement")
     public Equipement ajouterEquipement(@RequestBody Equipement equipement) {
         return equipementService.ajouterEquipement(equipement);

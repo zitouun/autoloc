@@ -54,3 +54,4 @@ public class Vehicule {
     )
     private Set<Equipement> equipements = new HashSet<>();
 }
+

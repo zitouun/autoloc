@@ -18,6 +18,11 @@ public class MaintenanceController {
         return maintenanceService.afficherTousMaintenance();
     }
 
+    @GetMapping("/afficherMaintenance/{idMaintenance}")
+    public Maintenance getMaintenanceById(@PathVariable Long idMaintenance) {
+        return maintenanceService.afficherMaintenaceById(idMaintenance);
+    }
+
     @PostMapping("/ajouterMaintenance")
     public Maintenance ajouterMaintenance(@RequestBody Maintenance maintenance) {
         return maintenanceService.ajouterMaintenace(maintenance);

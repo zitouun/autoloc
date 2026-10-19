@@ -18,22 +18,29 @@ public class PaimentService  implements IPaiementService{
 
     @Override
     public Paiement modifierPaiment(Paiement paiement) {
-        return null;
+        if (paiement.getIdPaiement() == null || !paimentRepository.existsById(paiement.getIdPaiement())) {
+            throw new IllegalArgumentException("Paiement introuvable : " + paiement.getIdPaiement());
+        }
+        return paimentRepository.save(paiement);
     }
 
     @Override
     public List<Paiement> afiicherTousPaiement() {
-        return List.of();
+        return paimentRepository.findAll();
     }
 
     @Override
     public Paiement afficherPaiementById(Long id) {
-        return null;
+        return paimentRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Paiement introuvable : " + id));
     }
-
+    
     @Override
     public void supprimerPaiement(Long id) {
-
+        if (!paimentRepository.existsById(id)) {
+            throw new IllegalArgumentException("Paiement introuvable : " + id);
+        }
+        paimentRepository.deleteById(id);
     }
 
 
