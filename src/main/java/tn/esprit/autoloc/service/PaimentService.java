@@ -13,6 +13,7 @@ public class PaimentService  implements IPaiementService{
 
     @Override
     public Paiement ajouterPaiement(Paiement paiement) {
+
         return paimentRepository.save(paiement);
     }
 
@@ -26,6 +27,7 @@ public class PaimentService  implements IPaiementService{
 
     @Override
     public List<Paiement> afiicherTousPaiement() {
+
         return paimentRepository.findAll();
     }
 

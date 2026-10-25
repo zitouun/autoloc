@@ -17,6 +17,7 @@ public class AgenceService implements IAgenceService{
 
     @Override
     public Agence ajouerAgence(Agence agence) {
+
         return agenceRepository.save(agence);
     }
 
@@ -30,6 +31,7 @@ public class AgenceService implements IAgenceService{
 
     @Override
     public List<Agence> afficherTousAgence() {
+
         return agenceRepository.findAll();
     }
 

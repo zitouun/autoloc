@@ -20,15 +20,19 @@ public class ReservationService implements IReservationService {
 
     @Override
     public Reservation modifierReservation(Reservation reservation) {
-        if (reservation.getIdReservation() == null
-                || !reservationReopitory.existsById(reservation.getIdReservation())) {
-            throw new IllegalArgumentException("Reservation introuvable : " + reservation.getIdReservation());
+        if (reservation.getIdReservation() == null) {
+            throw new IllegalArgumentException("Reservation introuvable : null");
         }
+        Reservation existante = reservationReopitory.findById(reservation.getIdReservation())
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Reservation introuvable : " + reservation.getIdReservation()));
+        reservation.setContrat(existante.getContrat());
         return reservationReopitory.save(reservation);
     }
 
     @Override
     public List<Reservation> afficherTousReservation() {
+
         return reservationReopitory.findAll();
     }
 

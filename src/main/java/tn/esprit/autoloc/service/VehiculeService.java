@@ -40,22 +40,32 @@ public class VehiculeService implements IVehiculeService{
 
     @Override
     public Vehicule modifierVehicule(Vehicule vehicule) {
-        if (vehicule.getIdVehicule() == null
-                || !vehiculeRepository.existsById(vehicule.getIdVehicule())) {
-            throw new IllegalArgumentException("Vehicule introuvable : " + vehicule.getIdVehicule());
+        if (vehicule.getIdVehicule() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "idVehicule est obligatoire pour modifier un véhicule");
         }
+        Vehicule existant = vehiculeRepository.findById(vehicule.getIdVehicule())
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Vehicule introuvable : " + vehicule.getIdVehicule()
+                ));
+        vehicule.setMaintenances(existant.getMaintenances());
         if (vehicule.getAgence() == null || vehicule.getAgence().getIdAgence() == null) {
-            throw new IllegalArgumentException("Une agence existante doit être fournie");
+            vehicule.setAgence(existant.getAgence());
+        } else {
+            Long idAgence = vehicule.getAgence().getIdAgence();
+            Agence agence = agenceRepository.findById(idAgence)
+                    .orElseThrow(() -> new ResponseStatusException(
+                            HttpStatus.NOT_FOUND,
+                            "Agence introuvable : " + idAgence
+                    ));
+            vehicule.setAgence(agence);
         }
-        Agence agence = agenceRepository.findById(vehicule.getAgence().getIdAgence())
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Agence introuvable : " + vehicule.getAgence().getIdAgence()));
-        vehicule.setAgence(agence);
         return vehiculeRepository.save(vehicule);
     }
 
     @Override
     public List<Vehicule> afficherTousVehicule() {
+
         return vehiculeRepository.findAll();
     }
 

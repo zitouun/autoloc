@@ -25,16 +25,19 @@ public class EmployerController {
 
     @PostMapping("/ajouterEmploye")
     public Employe ajouterEmploye(@RequestBody Employe employe) {
+
         return employeService.ajouterEmploye(employe);
     }
 
     @PutMapping("/modifierEmploye")
     public Employe modifierEmploye(@RequestBody Employe employe){
+
         return employeService.modifierEmploye(employe);
     }
 
     @DeleteMapping("/supprimerEmploye/{idEmploye}")
     public void supprimerEmploye(@PathVariable Long idEmploye){
+
         employeService.supprimerEmploye(idEmploye);
     }
 }

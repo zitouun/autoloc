@@ -56,6 +56,7 @@ public class EquipementService implements IEquipementService{
 
     @Override
     public List<Equipement> afficherTousEquipement() {
+
         return equipementRepository.findAll();
     }
 
