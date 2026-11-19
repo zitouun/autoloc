@@ -29,7 +29,7 @@ public class Employe {
     private RoleEmploye role;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_agence", nullable = false)
+    @JoinColumn(name = "id_agence")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Agence agence;
 }
