@@ -2,7 +2,6 @@ package tn.esprit.autoloc.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,8 +12,6 @@ import tn.esprit.autoloc.repository.AgenceRepository;
 import tn.esprit.autoloc.repository.EquipementRepository;
 import tn.esprit.autoloc.repository.VehiculeRepository;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -22,31 +19,9 @@ import java.util.List;
 
 public class VehiculeService implements IVehiculeService{
 
-    private static final DateTimeFormatter FORMAT_DATE_HEURE =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
     private final VehiculeRepository vehiculeRepository ;
     private final AgenceRepository agenceRepository;
     private final EquipementRepository equipementRepository;
-
-    @Scheduled(initialDelay = 5000, fixedRate = 60000)
-    public void actualiserEtatVehicules() {
-        List<Vehicule> vehicules = vehiculeRepository.findAll();
-        System.out.println("=== Actualisation des véhicules ===");
-        System.out.println("Nombre total de véhicules enregistrés : " + vehicules.size());
-        System.out.println("Date et heure de l'actualisation : "
-                + LocalDateTime.now().format(FORMAT_DATE_HEURE));
-    }
-
-    @Scheduled(cron = "0 0 9 * * MON")
-    public void genererRapportVehicules() {
-        List<Vehicule> vehicules = vehiculeRepository.findAll();
-        int nombreTotal = vehicules.size();
-        System.out.println("=== Rapport périodique des véhicules ===");
-        System.out.println("Nombre total de véhicules : " + nombreTotal);
-        System.out.println("Date et heure de génération : "
-                + LocalDateTime.now().format(FORMAT_DATE_HEURE));
-    }
 
     @Override
     public Vehicule ajouterVehicule(Vehicule vehicule) {

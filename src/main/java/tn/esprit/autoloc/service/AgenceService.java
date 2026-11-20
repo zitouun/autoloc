@@ -3,7 +3,6 @@ package tn.esprit.autoloc.service;
 import lombok.AllArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -12,8 +11,6 @@ import tn.esprit.autoloc.domain.Vehicule;
 import tn.esprit.autoloc.repository.AgenceRepository;
 import tn.esprit.autoloc.repository.VehiculeRepository;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,21 +19,8 @@ import java.util.List;
 
 public class AgenceService implements IAgenceService{
 
-    private static final DateTimeFormatter FORMAT_DATE_HEURE =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
     private final AgenceRepository agenceRepository ;
     private final VehiculeRepository vehiculeRepository;
-
-    @Scheduled(fixedDelay = 120000)
-    public void suivreNombreAgences() {
-        List<Agence> agences = agenceRepository.findAll();
-        System.out.println("=== Suivi des agences ===");
-        System.out.println("Nombre total d'agences enregistrées : " + agences.size());
-        System.out.println("Date et heure de la vérification : "
-                + LocalDateTime.now().format(FORMAT_DATE_HEURE));
-    }
-
 
     @Override
     public Agence ajouerAgence(Agence agence) {
